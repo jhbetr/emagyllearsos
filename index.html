@@ -226,9 +226,21 @@
   <script src="renpy-pre.js"></script>
   <script async type="text/javascript" src="renpy.js"></script>
 
-  <!-- Force tab title to stay -->
+  <!-- Force tab title to stay no matter what -->
   <script>
-    document.title = "im an incel";
+    (function() {
+      const desiredTitle = "im an incel";
+      document.title = desiredTitle;
+
+      // Watch for any changes to the <title> element
+      const titleEl = document.querySelector("title");
+      const observer = new MutationObserver(() => {
+        if (document.title !== desiredTitle) {
+          document.title = desiredTitle;
+        }
+      });
+      observer.observe(titleEl, { childList: true, subtree: true });
+    })();
   </script>
 </body>
 
